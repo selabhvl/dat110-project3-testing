@@ -1,6 +1,7 @@
 package no.hvl.dat110.utility;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.security.NoSuchAlgorithmException;
 
 import no.hvl.dat110.rpc.interfaces.NodeInterface;
@@ -18,6 +19,10 @@ public class FileDistributorClient {
 
 	public static void main(String[] args) throws NoSuchAlgorithmException, IOException {
 
+		doDistribute();
+	}
+	
+	public static void doDistribute() throws NoSuchAlgorithmException, IOException {
 		// use this node to distribute files to active peers
 		String path = "./files/";														// absolute path to the files
 		String[] files = {"file1.txt","file2.txt","file3.txt","file4.txt","file5.txt"}; // we just limit to 5 files
