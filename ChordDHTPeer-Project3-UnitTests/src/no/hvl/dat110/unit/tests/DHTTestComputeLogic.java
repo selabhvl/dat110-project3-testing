@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import no.hvl.dat110.util.Hash;
 import no.hvl.dat110.util.Util;
 
 class DHTTestComputeLogic {
@@ -49,11 +50,37 @@ class DHTTestComputeLogic {
 		BigInteger lower5 = new BigInteger("210821560651360572675896360671414673172");
 		BigInteger upper5 = new BigInteger("15618062003214643351512781541041391612");
 		
+		// (false)
+		BigInteger id6 = new BigInteger("5").mod(Hash.addressSize());
+		BigInteger lower6 = Hash.addressSize().subtract(new BigInteger("4"));
+		BigInteger upper6 = new BigInteger("2").mod(Hash.addressSize());
+		
+		// (true)
+		BigInteger id7 = BigInteger.ZERO;
+		BigInteger lower7 = Hash.addressSize().subtract(new BigInteger("4"));
+		BigInteger upper7 = new BigInteger("2").mod(Hash.addressSize());
+		
+		// (true)
+		BigInteger id8 = Hash.addressSize().subtract(new BigInteger("2"));
+		BigInteger lower8 = Hash.addressSize().subtract(new BigInteger("4"));
+		BigInteger upper8 = new BigInteger("2").mod(Hash.addressSize());
+		
+		// (false)
+		BigInteger id9 = new BigInteger("10").mod(Hash.addressSize());
+		BigInteger lower9 = Hash.addressSize().subtract(new BigInteger("5"));
+		BigInteger upper9 = new BigInteger("2").mod(Hash.addressSize());
+		
 		assertFalse(Util.computeLogic(id1, lower1, upper1));
 		assertTrue(Util.computeLogic(id2, lower2, upper2));
 		assertTrue(Util.computeLogic(id3, lower3, upper3));
 		assertTrue(Util.computeLogic(id4, lower4, upper4));
 		assertTrue(Util.computeLogic(id5, lower5, upper5));
+		
+		assertFalse(Util.computeLogic(id6, lower6, upper6));
+		assertTrue(Util.computeLogic(id7, lower7, upper7));
+		assertTrue(Util.computeLogic(id8, lower8, upper8));
+		assertFalse(Util.computeLogic(id9, lower9, upper9));
+		
 	}
 
 }
